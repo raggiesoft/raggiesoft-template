@@ -1,4 +1,4 @@
-````
+
 # RaggieSoft Narrative Template (v1.1)
 
 A lightweight, PHP-based website engine designed for storytelling, world-building, and narrative archives. This template separates **Content** (PHP/HTML) from **Presentation** (CSS Themes), allowing you to spin up new narrative universes quickly while maintaining a consistent, robust architecture.
