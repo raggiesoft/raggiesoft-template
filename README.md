@@ -1,129 +1,82 @@
 
-# RaggieSoft Narrative Template (v1.1)
+# RaggieSoft Site Template (Standard Edition)
 
-A lightweight, PHP-based website engine designed for storytelling, world-building, and narrative archives. This template separates **Content** (PHP/HTML) from **Presentation** (CSS Themes), allowing you to spin up new narrative universes quickly while maintaining a consistent, robust architecture.
+A lightweight, router-based PHP starter kit for deploying websites within the RaggieSoft network.
 
-## 🚀 Tech Stack
+This template implements the **"Elara" Architecture**, designed for speed, portability, and separation of concerns. It decouples the application logic (PHP) from the presentation layer (CDN assets), allowing for instant theming and rapid deployment.
 
-* **Backend Logic:** Custom "Elara" Router (PHP 8.x+)
-* **Frontend Framework:** Bootstrap 5.3.8 (Specific Version Locked)
-* **Icons:** Font Awesome Pro (via Kit)
-* **Theming:** CSS Custom Properties (Variables) with Dark Mode support
-* **Asset Management:** CDN-ready architecture (DigitalOcean Spaces compatible)
+---
+
+## 🚀 Features
+
+* **Elara Smart Router:** A file-based routing engine (`index.php`) with auto-discovery for views. No complex configuration required for standard pages.
+* **CDN Integration:** Pre-configured to load CSS, JS, and media assets from the central `assets.raggiesoft.com` repository.
+* **Theme Engine:** Supports dynamic theme switching (e.g., "Corporate" vs. "Ad Astra") via simple configuration variables.
+* **SEO Ready:** Built-in Open Graph metadata injection for rich social sharing.
 
 ---
 
 ## 📂 Directory Structure
 
-```text
-/raggiesoft-template
+
+/
 ├── public/
-│   └── index.php          <-- The Brain (Entry Point & Router)
+│   ├── index.php           # Entry Point & Router Logic
+│   └── errors/             # Error pages (403, 404, 500)
 ├── includes/
-│   ├── header.php         <-- Global <head>, Meta Tags, Theme Loader
-│   ├── footer.php         <-- Global Footer & Scripts
-│   └── components/        <-- Reusable UI Elements (Navs, Cards, Buttons)
-├── pages/                 <-- Your Content Lives Here
-│   ├── home.php
-│   └── discography/       <-- Supports nested directories
-│       └── overview.php
-├── assets/
-│   └── css/
-│       └── theme-template.css  <-- The Master Color Palette
-└── errors/
-    └── 404.php
-````
+│   ├── header.php          # Asset Loader & HTML Head
+│   ├── footer.php          # Global Footer
+│   ├── components/         # Reusable UI parts (Navbars, Sidebars)
+│   └── utils/              # Helper scripts (Data Loaders)
+└── pages/
+    ├── home.php            # Default landing page
+    └── templates/          # Copy/Paste starter files for new pages
+
 
 ---
 
-## 🛠️ Getting Started
+## 🛠️ Quick Start
 
-### 1. Configuration
-
-Open `public/index.php` and configure the **Global Defaults** block at the top:
-
-PHP
-
-```
-$siteName = 'Luna and Leo'; // Your Project Name
-$projectSlug = 'luna-and-leo'; // Matches your CDN folder
-$defaultTheme = 'luna-leo'; // Matches theme-luna-leo.css
-$cdnBaseUrl = '[https://assets.raggiesoft.com](https://assets.raggiesoft.com)';
-```
-
-### 2. Theming
-
-This engine uses a **Dual-Layer Theme Stack**:
-
-1. **Logic Layer:** `bootstrap-overrides.css` (Hosted globally on your CDN). Handles component fixes and dark mode logic.
+1. **Clone & Configure:** Copy this repository to your new project folder.
     
-2. **Paint Layer:** Your project-specific theme file (e.g., `theme-luna-leo.css`).
+2. **Configure the Router:** Open `public/index.php` and update the **Global Configuration** block:
     
-
-To create a new theme:
-
-1. Copy `assets/css/theme-template.css`.
+    PHP
     
-2. Rename it (e.g., `theme-neon-city.css`).
+    ```
+    $siteConfig = [
+        'name' => 'My New Project',
+        'slug' => 'my-new-project', // Must match a folder on the CDN
+        'default_theme' => 'corporate',
+        // ...
+    ];
+    ```
     
-3. Upload it to your CDN folder: `/$projectSlug/css/`.
+3. **Create Pages:** Add new PHP files to the `/pages/` directory. The router will automatically map them.
     
-4. Edit the CSS Variables in the `:root` block to define your palette.
-    
-
-**Example Palette:**
-
-CSS
-
-```
-:root {
-    --color-bg-dark: #0D061A;       /* Deep Space Purple */
-    --color-accent-primary: #FF4D6A; /* Nebula Red */
-    --color-accent-highlight: #00F0FF; /* Cyan Links */
-}
-```
-
-### 3. The "Elara" Router
-
-The router uses **Auto-Discovery** to map URLs to files, keeping your configuration minimal.
-
-- **URL:** `/about` -> **File:** `pages/about.php`
-    
-- **URL:** `/discography` -> **File:** `pages/discography/overview.php`
-    
-
-**Custom Routes:** You can override this behavior in `index.php` to set specific titles or themes for a single page:
-
-PHP
-
-```
-'/special-event' => [
-    'view' => 'pages/events/2024-gala',
-    'title' => 'The Gala - ' . $siteName,
-    'theme' => 'midnight-gold' // Loads theme-midnight-gold.css
-],
-```
-
----
-
-## 📦 Components & Features
-
-- **Smart Sidebar:** Automatically injects a sidebar if `$showSidebar` is true, or renders full-width if false.
-    
-- **WCAG AAA Compliance:** The theme logic automatically handles contrast for buttons and alerts (forcing dark text on light backgrounds and vice-versa).
-    
-- **CDN Integration:** Assets (images, CSS, audio) are linked dynamically using `$cdnBaseUrl`, keeping the Git repo lightweight.
+    - `pages/about.php` -> `example.com/about`
+        
+    - `pages/contact.php` -> `example.com/contact`
+        
+4. **Deploy:** Point your web server (Nginx/Apache) document root to the `/public` directory.
     
 
 ---
 
-## 📜 License
+## 📜 Licensing
 
-This project operates under the standard **RaggieSoft Dual-License Model**:
+This project operates under a specific **Dual-License Model** to distinguish between the underlying technology and the creative works it presents.
 
-- **Source Code:** [MIT License](https://www.google.com/search?q=LICENSE)
-    
-- **Creative Content:** CC BY-SA 4.0 (Applies to narrative text, characters, and lore).
-    
+### 1. Source Code (The Engine)
 
-© 2025 RaggieSoft.
+All underlying software code, scripts, HTML structure, and architecture (including the "Elara" router logic) are licensed under the **MIT License**.
+
+> Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files...
+
+### 2. Creative Content (The Narrative)
+
+All creative assets, including but not limited to narrative text, lore, character biographies, world-building elements, and visual artwork, are licensed under the **Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)** License.
+
+### 3. Proprietary Extensions
+
+**Note:** Specific compiled applications or commercial media distributions (e.g., music albums, mobile apps) released through this platform may be subject to separate, proprietary licenses. Please refer to the specific terms included with those releases.
