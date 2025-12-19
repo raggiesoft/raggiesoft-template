@@ -16,7 +16,7 @@ Based on the architecture of *The Stardust Engine*, Elara separates content (PHP
 
 ## 📂 Directory Structure
 
-
+```
 /
 ├── data/
 │   ├── routes/              # Route-specific metadata overrides
@@ -30,7 +30,7 @@ Based on the architecture of *The Stardust Engine*, Elara separates content (PHP
 └── pages/
     ├── home.php            # Default landing page
     └── templates/          # Copy/Paste starter files for new pages
-
+```
 
 ---
 
