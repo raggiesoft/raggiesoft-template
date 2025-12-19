@@ -15,26 +15,23 @@ Based on the architecture of *The Stardust Engine*, Elara separates content (PHP
 ---
 
 ## 📂 Directory Structure
-```
+
+
 /
 ├── data/
 │   ├── routes/              # Route-specific metadata overrides
 │   │   └── core.json
 │   └── settings.json        # Global site configuration (Name, CDN URL, Defaults)
 ├── includes/
-│   ├── components/
-│   │   ├── headers/         # Navbars (Default, Admin, etc.)
-│   │   └── sidebars/        # Sidebar menus
-│   ├── footer.php           # Global footer
-│   └── header.php           # Global <head> and asset loader
-├── pages/                   # Your content files (Views)
-│   ├── home.php
-│   └── ...
-├── public/                  # Web Server Document Root
-│   ├── errors/              # 404, 500 pages
-│   └── index.php            # The Router (Main Entry Point)
-└── README.md
-```
+│   ├── header.php          # Asset Loader & HTML Head
+│   ├── footer.php          # Global Footer
+│   ├── components/         # Reusable UI parts (Navbars, Sidebars)
+│   └── utils/              # Helper scripts (Data Loaders)
+└── pages/
+    ├── home.php            # Default landing page
+    └── templates/          # Copy/Paste starter files for new pages
+
+
 ---
 
 ## ⚙️ Installation & Setup
