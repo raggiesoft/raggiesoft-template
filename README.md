@@ -1,82 +1,167 @@
+# Elara Starter Kit
 
-# RaggieSoft Site Template (Standard Edition)
+A lightweight, data-driven PHP routing engine designed for building content-heavy websites with minimal overhead. 
 
-A lightweight, router-based PHP starter kit for deploying websites within the RaggieSoft network.
+Based on the architecture of *The Stardust Engine*, Elara separates content (PHP views), configuration (JSON), and assets (CDN-based), allowing for rapid site deployment without a heavy framework.
 
-This template implements the **"Elara" Architecture**, designed for speed, portability, and separation of concerns. It decouples the application logic (PHP) from the presentation layer (CDN assets), allowing for instant theming and rapid deployment.
+## 🚀 Key Features
 
----
-
-## 🚀 Features
-
-* **Elara Smart Router:** A file-based routing engine (`index.php`) with auto-discovery for views. No complex configuration required for standard pages.
-* **CDN Integration:** Pre-configured to load CSS, JS, and media assets from the central `assets.raggiesoft.com` repository.
-* **Theme Engine:** Supports dynamic theme switching (e.g., "Corporate" vs. "Ad Astra") via simple configuration variables.
-* **SEO Ready:** Built-in Open Graph metadata injection for rich social sharing.
+* **Smart Routing:** Automatically maps URLs (e.g., `/about/team`) to file paths (`pages/about/team.php`) without manual configuration.
+* **H1 Auto-Discovery:** If a page title isn't defined in the config, Elara automatically scrapes the first `<h1>` tag from the file to generate the `<title>` tag.
+* **JSON Configuration:** Manage metadata, Open Graph tags, and sidebar visibility via simple JSON files in `data/routes/`.
+* **Context-Aware Layouts:** Automatically injects specific Sidebars or Headers based on the URL section (e.g., `/docs/*` loads the Documentation sidebar).
+* **CDN Asset Loading:** A centralized header architecture designed to load CSS/JS from an external asset host or CDN.
 
 ---
 
 ## 📂 Directory Structure
-
-
+```
 /
-├── public/
-│   ├── index.php           # Entry Point & Router Logic
-│   └── errors/             # Error pages (403, 404, 500)
+├── data/
+│   ├── routes/              # Route-specific metadata overrides
+│   │   └── core.json
+│   └── settings.json        # Global site configuration (Name, CDN URL, Defaults)
 ├── includes/
-│   ├── header.php          # Asset Loader & HTML Head
-│   ├── footer.php          # Global Footer
-│   ├── components/         # Reusable UI parts (Navbars, Sidebars)
-│   └── utils/              # Helper scripts (Data Loaders)
-└── pages/
-    ├── home.php            # Default landing page
-    └── templates/          # Copy/Paste starter files for new pages
+│   ├── components/
+│   │   ├── headers/         # Navbars (Default, Admin, etc.)
+│   │   └── sidebars/        # Sidebar menus
+│   ├── footer.php           # Global footer
+│   └── header.php           # Global <head> and asset loader
+├── pages/                   # Your content files (Views)
+│   ├── home.php
+│   └── ...
+├── public/                  # Web Server Document Root
+│   ├── errors/              # 404, 500 pages
+│   └── index.php            # The Router (Main Entry Point)
+└── README.md
+```
+---
+
+## ⚙️ Installation & Setup
+
+### 1. Server Requirements
+
+- PHP 8.0 or higher
+    
+- Apache (with mod_rewrite) OR Nginx
+    
+
+### 2. Document Root
+
+Point your web server's document root to the `/public` folder.
+
+### 3. URL Rewriting
+
+Ensure all requests are forwarded to `index.php`.
+
+**For Apache (.htaccess in /public):**
+
+Apache
+
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
+
+
+**For Nginx:**
+
+Nginx
+
+
+location / {
+    try_files $uri $uri/ /index.php?$query_string;
+}
 
 
 ---
 
-## 🛠️ Quick Start
+## 📖 Usage Guide
 
-1. **Clone & Configure:** Copy this repository to your new project folder.
+### 1. Creating a New Page
+
+Simply create a PHP file in the `pages/` directory. The router automatically finds it.
+
+- **File:** `pages/contact.php`
     
-2. **Configure the Router:** Open `public/index.php` and update the **Global Configuration** block:
+- **URL:** `your-site.com/contact`
     
-    PHP
+
+**Example Content (`pages/contact.php`):**
+
+
+<div class="container py-5">
+    <h1>Contact Us</h1> 
+    <p>Email us at hello@example.com</p>
+</div>
+
+
+### 2. Overriding Metadata (Optional)
+
+If you want to customize the browser title, add Open Graph images, or change the sidebar for a specific page, add an entry to `data/routes/core.json`.
+
+{
+  "/contact": {
+    "title": "Get in Touch - Official Support",
+    "ogDescription": "Contact our support team available 24/7.",
+    "showSidebar": true,
+    "sidebar": "sidebar-support"
+  }
+}
+
+
+### 3. Global Configuration
+
+Edit `data/settings.json` to control site-wide defaults.
+
+- **`siteName`**: Appended to auto-generated titles.
     
-    ```
-    $siteConfig = [
-        'name' => 'My New Project',
-        'slug' => 'my-new-project', // Must match a folder on the CDN
-        'default_theme' => 'corporate',
-        // ...
-    ];
-    ```
+- **`cdnBaseUrl`**: The root URL for your CSS/JS assets (used in `header.php`).
     
-3. **Create Pages:** Add new PHP files to the `/pages/` directory. The router will automatically map them.
+- **`sidebarMap`**: Automatically applies specific sidebars to URL patterns.
     
-    - `pages/about.php` -> `example.com/about`
-        
-    - `pages/contact.php` -> `example.com/contact`
-        
-4. **Deploy:** Point your web server (Nginx/Apache) document root to the `/public` directory.
-    
+
+**Example `settings.json`:**
+
+{
+  "siteName": "My Awesome Site",
+  "cdnBaseUrl": "[https://assets.mysite.com](https://assets.mysite.com)",
+  "defaultTheme": "light",
+  "sidebarMap": {
+    "/docs": "sidebar-docs", 
+    "/blog": "sidebar-blog"
+  }
+}
+
+
+_In this example, any page URL starting with `/docs` will automatically load `includes/components/sidebars/sidebar-docs.php`._
 
 ---
 
-## 📜 Licensing
+## 🎨 Theming & Assets
 
-This project operates under a specific **Dual-License Model** to distinguish between the underlying technology and the creative works it presents.
+The `includes/header.php` file is pre-configured to load styles dynamically based on the **RaggieSoft Asset Architecture**.
 
-### 1. Source Code (The Engine)
+It constructs CSS paths using the `$cdnBaseUrl` + `$site` + `$theme` variables.
 
-All underlying software code, scripts, HTML structure, and architecture (including the "Elara" router logic) are licensed under the **MIT License**.
+1. **Default Behavior:** Loads `[CDN]/[site]/css/bootstrap/root.css` etc.
+    
+2. **Customizing:** If you are not using an external CDN, modify `includes/header.php` to point to your local CSS path:
+    
 
-> Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files...
+    // Example Modification for Local CSS
+    $path_theme_base = "/assets/css"; 
 
-### 2. Creative Content (The Narrative)
+    
 
-All creative assets, including but not limited to narrative text, lore, character biographies, world-building elements, and visual artwork, are licensed under the **Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)** License.
+## 🧩 Advanced: Changing the Header/Logo per Page
 
-### 3. Proprietary Extensions
+You can completely rebrand the site for a specific section (e.g., a sub-project or landing page) by adding these parameters to your route JSON:
 
-**Note:** Specific compiled applications or commercial media distributions (e.g., music albums, mobile apps) released through this platform may be subject to separate, proprietary licenses. Please refer to the specific terms included with those releases.
+"/special-event": {
+  "headerMenu": "headers/header-event",
+  "navbarBrandText": "Special Event 2025",
+  "navbarBrandLogo": "[https://cdn.site.com/event-logo.png](https://cdn.site.com/event-logo.png)",
+  "theme": "dark-mode"
+}
