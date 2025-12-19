@@ -1,0 +1,20 @@
+{
+  "siteName": "My New Project",
+  "cdnBaseUrl": "https://assets.my-cdn.com",
+  "defaultTheme": "light",
+  "defaults": {
+    "showSidebar": false,
+    "sidebar": "sidebar-default",
+    "navbarBrandLogo": "/images/logo.png",
+    "navbarBrandText": "My Project"
+  },
+  "sidebarMap": {
+    "/docs": "sidebar-docs",
+    "/blog": "sidebar-blog",
+    "/about": "sidebar-default"
+  },
+  "headerMap": {
+    "/admin": "header-admin",
+    "/shop": "header-shop"
+  }
+}

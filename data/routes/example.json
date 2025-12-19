@@ -1,0 +1,30 @@
+{
+  "/": {
+    "view": "pages/home",
+    "title": "Welcome Home",
+    "showSidebar": false
+  },
+  "/about": {
+    "view": "pages/about",
+    "showSidebar": true
+  },
+  "/engine-room/history/nine-figure-refusal": {
+    "view": "pages/engine-room/history/nine-figure-refusal/overview",
+    "title": "The $150M Refusal - Overview",
+    "site": "portfolio",
+    "theme": "corporate",
+    "showSidebar": true,
+    "sidebar": "sidebar-history-nine-figure-refusal",
+    "headerMenu": "engine-room/header-nine-figure-refusal",
+    
+    "ogTitle": "The Accidental Empire: How a Band Bought a Corporation",
+    "ogDescription": "How Engine Room Records accidentally acquired a Fortune 500 company after a failed hostile takeover attempt.",
+    "ogImage": "https://assets.raggiesoft.com/engine-room-records/images/omni-global/150-million-refusal.jpg",
+    
+    "navbarBrandLogo": "https://assets.raggiesoft.com/engine-room-records/images/logos/engine-room-records-logo.jpg",
+    "navbarBrandText": "Engine Room<span class=\"d-none d-md-inline\"> Records</span>",
+    "navbarBrandLink": "/engine-room",
+    "navbarBrandAlt": "Engine Room Records Official Seal",
+    "navbarBrandClass": "rounded-0 navbar-brand-corporate-img"
+  }
+}
