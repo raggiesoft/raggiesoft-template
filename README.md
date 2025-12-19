@@ -1,3 +1,4 @@
+````
 # Elara Starter Kit
 
 A lightweight, data-driven PHP routing engine designed for building content-heavy websites with minimal overhead. 
@@ -16,21 +17,26 @@ Based on the architecture of *The Stardust Engine*, Elara separates content (PHP
 
 ## 📂 Directory Structure
 
-```
+```text
 /
 ├── data/
 │   ├── routes/              # Route-specific metadata overrides
 │   │   └── core.json
 │   └── settings.json        # Global site configuration (Name, CDN URL, Defaults)
 ├── includes/
-│   ├── header.php          # Asset Loader & HTML Head
-│   ├── footer.php          # Global Footer
-│   ├── components/         # Reusable UI parts (Navbars, Sidebars)
-│   └── utils/              # Helper scripts (Data Loaders)
-└── pages/
-    ├── home.php            # Default landing page
-    └── templates/          # Copy/Paste starter files for new pages
-```
+│   ├── components/
+│   │   ├── headers/         # Navbars (Default, Admin, etc.)
+│   │   └── sidebars/        # Sidebar menus
+│   ├── footer.php           # Global footer
+│   └── header.php           # Global <head> and asset loader
+├── pages/                   # Your content files (Views)
+│   ├── home.php
+│   └── ...
+├── public/                  # Web Server Document Root
+│   ├── errors/              # 404, 500 pages
+│   └── index.php            # The Router (Main Entry Point)
+└── README.md
+````
 
 ---
 
@@ -55,22 +61,22 @@ Ensure all requests are forwarded to `index.php`.
 
 Apache
 
-
+```
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.php [QSA,L]
-
+```
 
 **For Nginx:**
 
 Nginx
 
-
+```
 location / {
     try_files $uri $uri/ /index.php?$query_string;
 }
-
+```
 
 ---
 
@@ -87,17 +93,22 @@ Simply create a PHP file in the `pages/` directory. The router automatically fin
 
 **Example Content (`pages/contact.php`):**
 
+PHP
 
+```
 <div class="container py-5">
     <h1>Contact Us</h1> 
     <p>Email us at hello@example.com</p>
 </div>
-
+```
 
 ### 2. Overriding Metadata (Optional)
 
 If you want to customize the browser title, add Open Graph images, or change the sidebar for a specific page, add an entry to `data/routes/core.json`.
 
+JSON
+
+```
 {
   "/contact": {
     "title": "Get in Touch - Official Support",
@@ -106,7 +117,7 @@ If you want to customize the browser title, add Open Graph images, or change the
     "sidebar": "sidebar-support"
   }
 }
-
+```
 
 ### 3. Global Configuration
 
@@ -121,6 +132,9 @@ Edit `data/settings.json` to control site-wide defaults.
 
 **Example `settings.json`:**
 
+JSON
+
+```
 {
   "siteName": "My Awesome Site",
   "cdnBaseUrl": "[https://assets.mysite.com](https://assets.mysite.com)",
@@ -130,7 +144,7 @@ Edit `data/settings.json` to control site-wide defaults.
     "/blog": "sidebar-blog"
   }
 }
-
+```
 
 _In this example, any page URL starting with `/docs` will automatically load `includes/components/sidebars/sidebar-docs.php`._
 
@@ -146,19 +160,25 @@ It constructs CSS paths using the `$cdnBaseUrl` + `$site` + `$theme` variables.
     
 2. **Customizing:** If you are not using an external CDN, modify `includes/header.php` to point to your local CSS path:
     
-
+    PHP
+    
+    ```
     // Example Modification for Local CSS
     $path_theme_base = "/assets/css"; 
-
+    ```
     
 
 ## 🧩 Advanced: Changing the Header/Logo per Page
 
 You can completely rebrand the site for a specific section (e.g., a sub-project or landing page) by adding these parameters to your route JSON:
 
+JSON
+
+```
 "/special-event": {
   "headerMenu": "headers/header-event",
   "navbarBrandText": "Special Event 2025",
   "navbarBrandLogo": "[https://cdn.site.com/event-logo.png](https://cdn.site.com/event-logo.png)",
   "theme": "dark-mode"
 }
+```
