@@ -1,4 +1,3 @@
-````
 # Elara Starter Kit
 
 A lightweight, data-driven PHP routing engine designed for building content-heavy websites with minimal overhead. 
@@ -17,7 +16,7 @@ Based on the architecture of *The Stardust Engine*, Elara separates content (PHP
 
 ## 📂 Directory Structure
 
-```text
+```
 /
 ├── data/
 │   ├── routes/              # Route-specific metadata overrides
