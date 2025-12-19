@@ -1,6 +1,6 @@
 <?php
 // includes/components/sidebars/sidebar-default.php
-// Standard Navigation Sidebar
+// The Standard Navigation Sidebar
 ?>
 
 <h5 class="pt-3 pb-2 mb-3 border-bottom text-uppercase fs-6 text-body-secondary fw-bold">
@@ -27,12 +27,12 @@
 
 <ul class="nav flex-column mb-auto">
     <li class="nav-item">
-        <a class="nav-link link-secondary" href="https://github.com/raggiesoft" target="_blank">
+        <a class="nav-link link-secondary" href="https://github.com/" target="_blank" rel="noopener noreferrer">
             <i class="fa-brands fa-github me-2"></i>GitHub
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link link-secondary" href="https://raggiesoft.com" target="_blank">
+        <a class="nav-link link-secondary" href="#" target="_blank" rel="noopener noreferrer">
             <i class="fa-duotone fa-network-wired me-2"></i>Network Hub
         </a>
     </li>

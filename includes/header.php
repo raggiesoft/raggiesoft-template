@@ -36,6 +36,22 @@ $css_load_queue = [
 <!doctype html>
 <html lang="en" class="h-100" data-bs-theme="<?php echo htmlspecialchars($theme); ?>">
   <head>
+    <?php 
+    if (
+        isset($settings['analytics']['enabled']) && 
+        $settings['analytics']['enabled'] === true &&
+        !empty($settings['analytics']['trackingId'])
+    ): 
+    ?>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo htmlspecialchars($settings['analytics']['trackingId']); ?>"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', '<?php echo htmlspecialchars($settings['analytics']['trackingId']); ?>');
+        </script>
+    <?php endif; ?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo htmlspecialchars($pageTitle); ?></title>

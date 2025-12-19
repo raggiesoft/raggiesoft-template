@@ -2,6 +2,11 @@
   "siteName": "My New Project",
   "cdnBaseUrl": "https://assets.my-cdn.com",
   "defaultTheme": "light",
+  "analytics": {
+    "provider": "google",
+    "trackingId": "G-P9RG9JVYB6",
+    "enabled": true
+  },
   "defaults": {
     "showSidebar": false,
     "sidebar": "sidebar-default",
